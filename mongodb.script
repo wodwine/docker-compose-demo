@@ -1,0 +1,26 @@
+use admin
+db.createUser(
+  {
+    user: "node",
+    pwd: "node",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" }]
+  }
+)
+mongod --auth --port 27017
+
+mongo --port 27017 -u "node" -p "node" \
+  --authenticationDatabase "admin"
+
+use admin
+db.grantRolesToUser("node",[{role:"readWrite",db:"store"}])
+
+use store
+db.createCollection('books');
+db.books.remove({})
+db.books.insert({name:'Big Java',price:200});
+db.books.insert({name:'Python 101',price:150});
+db.books.insert({name:'Fun C++',price:270});
+
+db.books.find();
+
+

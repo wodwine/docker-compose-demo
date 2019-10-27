@@ -1,0 +1,28 @@
+version: '3.3'
+
+services:
+
+  mongodb:
+    build:
+      context: .
+      dockerfile: mongo.dockerfile
+    ports:
+      - "27017:27017"
+    networks:
+      - book-network
+    restart: always
+
+  node:
+    build:
+      context: .
+      dockerfile: node.dockerfile
+    ports:
+      - "9000:9000"
+    networks:
+      - book-network
+    depends_on:
+      - mongodb
+
+networks:
+  book-network:
+    driver: bridge
