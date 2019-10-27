@@ -1,7 +1,6 @@
 FROM node
-WORKDIR /Users/usa/Desktop/docker-compose-demo
-COPY package*.json ./
+RUN git clone \
+    https://github.com/ladyusa/docker-compose-demo.git
+WORKDIR /docker-compose-demo
 RUN npm install
-COPY . .
 EXPOSE 9000
-#CMD [ "npm", "start" ]
