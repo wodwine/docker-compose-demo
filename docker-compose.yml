@@ -22,6 +22,7 @@ services:
       - book-network
     depends_on:
       - mongodb
+    command: ["./wait-for-it.sh", "mongodb:27017", "--", "npm", "start"]
 
 networks:
   book-network:
